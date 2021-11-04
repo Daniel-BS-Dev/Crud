@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.devsuperior.dscatalog.dto.CategoryDTO;
-import com.devsuperior.dscatalog.entities.Category;
 import com.devsuperior.dscatalog.services.CategoryService;
 
 @RestController
@@ -49,6 +49,12 @@ public class CategoryResource {
 	public ResponseEntity<CategoryDTO> updated(@PathVariable Long id, @RequestBody CategoryDTO dto){
 		dto = service.updated(id, dto);
 		return ResponseEntity.ok().body(dto);
+	}
+	
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<Void> delete(@PathVariable Long id){
+		service.delete(id);
+		return ResponseEntity.noContent().build();
 	}
 
 }
