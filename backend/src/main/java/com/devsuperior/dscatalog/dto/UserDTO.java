@@ -19,7 +19,7 @@ public class UserDTO implements Serializable {
 	private String lastName;
 	
 	@NotBlank(message="campo obrigatorio")
-	@Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$*")
+	@Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$*", message="email invalido exemplode email valido: daniel@gmail.com")
 	private String email;
 	
 	private List<RoleDTO> roles = new ArrayList<>();
