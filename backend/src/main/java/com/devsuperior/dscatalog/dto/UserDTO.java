@@ -3,17 +3,23 @@ package com.devsuperior.dscatalog.dto;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-import com.devsuperior.dscatalog.entities.Role;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+
 import com.devsuperior.dscatalog.entities.User;
 
 public class UserDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
+	
+	@NotBlank(message="campo obrigatorio")
 	private String firstName;
 	private String lastName;
+	
+	@NotBlank(message="campo obrigatorio")
+	@Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$*")
 	private String email;
 	
 	private List<RoleDTO> roles = new ArrayList<>();

@@ -2,6 +2,8 @@ package com.devsuperior.dscatalog.resources;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,7 +43,7 @@ public class RoleResource {
 	}
 
 	@PostMapping
-	public ResponseEntity<RoleDTO> insert(@RequestBody RoleDTO dto){
+	public ResponseEntity<RoleDTO> insert(@Valid @RequestBody RoleDTO dto){
 		dto = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(dto.getId()).toUri();
 		return ResponseEntity.created(uri).body(dto);
@@ -49,7 +51,7 @@ public class RoleResource {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<RoleDTO> update(@PathVariable Long id, @RequestBody RoleDTO dto){
+	public ResponseEntity<RoleDTO> update(@Valid @PathVariable Long id, @RequestBody RoleDTO dto){
 		dto = service.update(id, dto);
 		return ResponseEntity.ok().body(dto);
 	}
