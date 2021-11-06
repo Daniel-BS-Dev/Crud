@@ -85,7 +85,7 @@ public class UserDTO implements Serializable {
 		this.password = password;
 	}
 
-	public Set<Role> getRoles() {
+	public List<RoleDTO> getRoles() {
 		return roles;
 	}
 
