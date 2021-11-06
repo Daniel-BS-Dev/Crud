@@ -50,8 +50,6 @@ public class ProductDTO implements Serializable {
 		
 	}
 
-
-
 	public Long getId() {
 		return id;
 	}
@@ -109,6 +107,10 @@ public class ProductDTO implements Serializable {
 
 	public void setDate(Instant date) {
 		this.date = date;
+	}
+
+	public List<CategoryDTO> getCategory() {
+		return category;
 	}
 	
 	

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.devsuperior.dscatalog.dto.CategoryDTO;
 import com.devsuperior.dscatalog.dto.ProductDTO;
 import com.devsuperior.dscatalog.services.ProductService;
 
@@ -55,7 +56,10 @@ public class ProductResource {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				  .buildAndExpand(dto.getId()).toUri();
 		return ResponseEntity.created(uri).body(dto);
+	
 	}
+	
+	
 	
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody ProductDTO dto){
