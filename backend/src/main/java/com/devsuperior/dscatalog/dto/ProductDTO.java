@@ -18,7 +18,7 @@ public class ProductDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
-	
+	// não posso esquece e usar o @Valid no resource
 	@Size(min = 2, max=30, message="deve ter entre 2 a 30 caracteres")
 	@NotBlank(message="campo obrigatorio")
 	private String name;

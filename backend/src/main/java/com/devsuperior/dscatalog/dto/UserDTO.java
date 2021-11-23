@@ -17,7 +17,7 @@ public class UserDTO implements Serializable {
 	@NotBlank(message="campo obrigatorio")
 	private String firstName;
 	private String lastName;
-	
+	// não posso esquece e usar o @Valid no resource
 	@NotBlank(message="campo obrigatorio")
 	@Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$*", message="email invalido exemplode email valido: daniel@gmail.com")
 	private String email;

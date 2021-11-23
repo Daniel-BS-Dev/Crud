@@ -2,6 +2,7 @@ package com.devsuperior.dscatalog.resources.exception;
 
 import java.io.Serializable;
 
+// class que recebera o erro gerado pela alguma exceçãoo do validation
 public class FieldMessage implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

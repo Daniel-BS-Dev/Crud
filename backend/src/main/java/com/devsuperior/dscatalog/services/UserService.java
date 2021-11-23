@@ -36,6 +36,7 @@ public class UserService implements UserDetailsService {
 	
 	private static Logger logger = (Logger) LoggerFactory.getLogger(UserService.class);
 	
+	//metodo criado na minha class AppConfig
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
@@ -62,6 +63,8 @@ public class UserService implements UserDetailsService {
 	public UserDTO insert(UserInsertDTO dto) {
 		User entity = new User();
 		copyEntity(entity, dto);
+		// vai encriptografa minha senha
+		// usando o security todo fica bloqueado em eu uso a class security para desbloquear
 		entity.setPassword(passwordEncoder.encode(dto.getPassword()));
 		entity = repository.save(entity);
 		return new UserDTO(entity);

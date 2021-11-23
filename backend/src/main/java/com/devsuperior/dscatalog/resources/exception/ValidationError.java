@@ -3,6 +3,7 @@ package com.devsuperior.dscatalog.resources.exception;
 import java.util.ArrayList;
 import java.util.List;
 
+// class que recebera o minha classe standarErro como herança e a class FieldMessage como linha
 public class ValidationError extends StandardError {
 	private static final long serialVersionUID = 1L;
 	

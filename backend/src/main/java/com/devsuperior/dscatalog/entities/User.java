@@ -36,6 +36,7 @@ public class User implements UserDetails, Serializable {
 	private String email;
 	private String password;
 	
+	// fetch eager -> quando eu chama o meu usuario virá os roles juntos tbm
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "tb_user_role",
 	joinColumns = @JoinColumn(name = "user_id"),

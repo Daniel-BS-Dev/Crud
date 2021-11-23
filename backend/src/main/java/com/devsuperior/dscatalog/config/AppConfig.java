@@ -14,7 +14,7 @@ public class AppConfig {
 	private String jwtSecret;
 
 	
-	// metodo para criptografa a senha do usuario
+	// metodo para criptografa a senha do usuario,deve esquecer de colocar minha dependencia security
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();

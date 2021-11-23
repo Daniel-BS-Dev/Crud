@@ -7,7 +7,7 @@ import com.devsuperior.dscatalog.services.validation.UserInsertValid;
 @UserInsertValid
 public class UserInsertDTO extends UserDTO{
 	private static final long serialVersionUID = 1L;
-	
+	// não posso esquece e usar o @Valid no resource
 	@Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{4,8}$", message="Campo deve conter letra maiuscula, letra menuscula e numeros")
 	private String password;
 	

@@ -11,7 +11,7 @@ public class CategoryDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
-	
+	// não posso esquece e usar o @Valid no resource
 	@Size(min=5, max=60, message="Deve ter entre 5 e 60 caracteres")
 	@NotBlank(message= "campo obrigatorio")
 	private String name;

@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+// tera os metodos para libera as rotas
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -22,9 +23,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private UserDetailsService service;
 	
 
+	// metodo para libera todos os enpointer
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers("/actuator/**");
+		//web.ignoring().antMatchers("/**"); ignora todos os enpointer
 	}
 
 	@Override
