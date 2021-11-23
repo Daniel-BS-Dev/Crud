@@ -72,8 +72,20 @@ Neste projeto eu aprendi. Criar projeto Spring Boot, criar monorepositório Git,
 
          spring.h2.console.enabled=true
          spring.h2.console.path=/h2-console
+	 
+	 
+### Endpoint /records
+
+```java
+{{host}}/records?min=2020-01-01T00:00:00Z&max=2020-07-31T00:00:00Z&page=0&linesPerPage=20&orderBy=moment&direction=DESC
+
+
+@RequestParam(value = "page", defaultValue = "0") Integer page,
+@RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
+@RequestParam(value = "orderBy", defaultValue = "moment") String orderBy,
+@RequestParam(value = "direction", defaultValue = "DESC") String direction)
   
-  
+ ````
       
 Daniel Benedito da Silva
 
