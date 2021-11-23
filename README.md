@@ -10,7 +10,7 @@
 
 ## Sobre o projeto
 
-Neste projeto eu aprendi. Criar projeto Spring Boot, criar monorepositório Git, organizar projeto em camadas, criar entidades, perfis de projeto, seeding da base de dados, criar web services REST, padrão DTO, CRUD completo, tratamento de exceções, dados de auditoria e paginação de dados. Você também vai aprender a trabalhar com Postman para testar as requisições, validação de dados com Bean Validation, autenticação e autorização com OAuth2 e JWT
+Neste projeto eu aprendi. Criar projeto Spring Boot, criar monorepositório Git, organizar projeto em camadas, criar entidades, perfis de projeto, seeding da base de dados, criar web services REST, padrão DTO, CRUD completo, tratamento de exceções, dados de auditoria e paginação de dados, trabalhar com Postman para testar as requisições, validação de dados com Bean Validation, autenticação e autorização com OAuth2 e JWT
    
 ## Modelo Conceitual
 ![crud - Copia](https://user-images.githubusercontent.com/81425846/143029111-c36c0ece-12ce-4ec4-962a-8168b0577323.png)
