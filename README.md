@@ -120,6 +120,226 @@ INSERT INTO tb_user_role (user_id, role_id) VALUES (2, 1);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (2, 2);
  
  ```
+ 
+ ## Configuração provisória para liberar todos endpoints, bloqueados pelo security
+ ```java
+ @Configuration
+ @EnableWebSecurity
+ public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers("/**");
+	}
+}
+
+ ````
+ 
+ ## Validação de Email
+ 
+ ### Annotation
+ ```java
+ import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import javax.validation.Constraint;
+import javax.validation.Payload;
+
+@Constraint(validatedBy = UserInsertValidator.class)
+@Target({ ElementType.TYPE })
+@Retention(RetentionPolicy.RUNTIME)
+
+public @interface UserInsertValid {
+	String message() default "Validation error";
+
+	Class<?>[] groups() default {};
+
+	Class<? extends Payload>[] payload() default {};
+}
+ ``````
+ 
+ ### Validator
+ 
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.devsuperior.dscatalog.dto.UserInsertDTO;
+import com.devsuperior.dscatalog.entities.User;
+import com.devsuperior.dscatalog.repositories.UserRepository;
+import com.devsuperior.dscatalog.resources.exceptions.FieldMessage;
+
+public class UserInsertValidator implements ConstraintValidator<UserInsertValid, UserInsertDTO> {
+	
+	@Override
+	public void initialize(UserInsertValid ann) {
+	}
+
+	@Override
+	public boolean isValid(UserInsertDTO dto, ConstraintValidatorContext context) {
+		
+		List<FieldMessage> list = new ArrayList<>();
+		
+		// Coloque aqui seus testes de validação, acrescentando objetos FieldMessage à lista
+		
+		for (FieldMessage e : list) {
+			context.disableDefaultConstraintViolation();
+			context.buildConstraintViolationWithTemplate(e.getMessage()).addPropertyNode(e.getFieldName())
+					.addConstraintViolation();
+		}
+		return list.isEmpty();
+	}
+}
+
+````
+
+## Passo a Passo para implementar o token
+ ### Spring Security
+ #### 1. interface que devem ser implementadas
+ - UserDetails
+ - UserDetailsService
+
+#### 2. Classe para cofiguração de segurança web
+- WebSecurityConfigurerAdapter
+
+#### 3. Bean Para efetuar autenticação
+- AuthenticationManager
+
+### Spring Cloud OAuth2
+
+#### 1. Beans para implementar o padrão Jwt
+
+- JwtAccesTokenConverter
+- JwtTokenStore
+
+#### 2. Classe de cofiguração para Authorization Server
+- AuthozizationServerConfigurerAdapter
+
+#### 3. Classe de configuração para Resource Server
+- ResourceServerConfigurerAdapter
+
+
+## Dependências Maven
+
+````java
+        <properties>
+		<java.version>11</java.version>
+		<spring-cloud.version>Hoxton.SR8</spring-cloud.version>
+	</properties>
+	<dependencies>
+		<dependency>
+	         <groupId>org.springframework.boot</groupId>
+	         <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+	          <groupId>org.springframework.boot</groupId>
+	          <artifactId>spring-boot-starter-data-jpa</artifactId>
+         </dependency>
+
+        <dependency>
+	         <groupId>com.h2database</groupId>
+	         <artifactId>h2</artifactId>
+	         <scope>runtime</scope>
+         </dependency>
+
+        <dependency>
+	        <groupId>org.postgresql</groupId>
+	        <artifactId>postgresql</artifactId>
+	        <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
+        <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-test</artifactId>
+	        <scope>test</scope>
+        </dependency>
+        <dependency>
+		<groupId>org.springframework.security</groupId>
+		<artifactId>spring-security-test</artifactId>
+		<scope>test</scope>
+	</dependency>
+
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-security</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.security.oauth.boot</groupId>
+		<artifactId>spring-security-oauth2-autoconfigure</artifactId>
+	</dependency>
+	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencyManagement>
+	   <dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+````
+
+## Beans para token JWT, Spring Cloud OAuth2
+````java
+@Bean
+public JwtAccessTokenConverter accessTokenConverter() {
+	JwtAccessTokenConverter tokenConverter = new JwtAccessTokenConverter();
+	tokenConverter.setSigningKey("MY-JWT-SECRET");
+	return tokenConverter;
+}
+
+@Bean
+public JwtTokenStore tokenStore() {
+	return new JwtTokenStore(accessTokenConverter());
+}
+
+````
+
+## Variáveis de ambiente básicas depois de adicionar segurança
+
+### application.properties
+````
+spring.profiles.active=${APP_PROFILE:test}
+
+spring.jpa.open-in-view=false
+
+security.oauth2.client.client-id=${CLIENT_ID:dscatalog}
+security.oauth2.client.client-secret=${CLIENT_SECRET:dscatalog123}
+
+jwt.secret=${JWT_SECRET:MY-JWT-SECRET}
+jwt.duration=${JWT_DURATION:86400}
+
+````
+
+
+
+
+ 
       
 Daniel Benedito da Silva
 
