@@ -23,6 +23,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "tb_user")
+//Security 1 passo -> userDetails interface para implementar o token
 public class User implements UserDetails, Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -32,6 +33,7 @@ public class User implements UserDetails, Serializable {
 	private String firstName;
 	private String lastName;
 	
+	//email não pode ser repetido, então eu tenho que ir no banco de dados e verificar se ja existe usando a minha classe UserInsertValid
 	@Column(unique = true)
 	private String email;
 	private String password;
@@ -101,6 +103,7 @@ public class User implements UserDetails, Serializable {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// transformando minha lista uma lista de grandtAuthority
 		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getAuthority())).collect(Collectors.toList());
 	}
 

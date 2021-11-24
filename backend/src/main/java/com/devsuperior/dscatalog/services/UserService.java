@@ -33,7 +33,9 @@ import ch.qos.logback.classic.Logger;
 
 @Service
 public class UserService implements UserDetailsService {
+	// Security 1 passo -> UserDetailsService interface usada para implementar o token
 	
+	// metodo usado para mostra usuario encontrado no console
 	private static Logger logger = (Logger) LoggerFactory.getLogger(UserService.class);
 	
 	//metodo criado na minha class AppConfig
@@ -104,9 +106,10 @@ public class UserService implements UserDetailsService {
 		}
 	}
 
+	// daqui vamos para o securityConfig
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		
+		// esse metodo busca meu usuario por email
 		User user = repository.findByEmail(username);
 		
 		if(user == null) {

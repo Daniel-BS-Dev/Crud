@@ -21,7 +21,10 @@ public class AppConfig {
 	}
 	
 	
+	// esses dois beans são objetos capazes de acessa um token jwt, ou seja ler um token, criar um token, codificar um token
+	
 	//adicionando o meus bean para dar acesso a o token pelo email
+	// metodo pego no readme do git beans do cloud 
 	@Bean
 	public JwtAccessTokenConverter accessTokenConverter() {
 		JwtAccessTokenConverter tokenConverter = new JwtAccessTokenConverter();
