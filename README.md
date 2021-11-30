@@ -1,4 +1,4 @@
-# DSCatalog-part-1
+# DSCatalog-Rest
 
 ## Ferramentas utilizadas
 
